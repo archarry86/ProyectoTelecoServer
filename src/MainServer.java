@@ -9,6 +9,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 
+
 public class MainServer {
 	
 	static Socket socket;  
@@ -40,7 +41,7 @@ public class MainServer {
 				System.out.println("Ejecutando....");
 				message = dataInputStream.readUTF();
 				System.out.println("Message from Client : "+ message);
-				executeMessage(message);				
+				executeMessage(message);			
 			}
 				
 			/*
@@ -72,13 +73,9 @@ public class MainServer {
 	
 	private static void executeMessage(String message) {
 		switch (message) {
-		case "MONITOR_DISK":
+		case "GET_DATA":
 			getDiskData();
-			break;
-		case "MONITOR_MEMORY_JVM":
-			getRamMemoryData();
-			break;
-
+			break;		
 		default:
 			break;
 		}
@@ -86,24 +83,17 @@ public class MainServer {
 	
 	private static void getDiskData() {
 		File cDrive = new File("C:");
-		System.out.println(String.format("Total space: %.2f GB",
-		  (double)cDrive.getTotalSpace() /1073741824));
-		System.out.println(String.format("Free space: %.2f GB", 
-		  (double)cDrive.getFreeSpace() /1073741824));
-		System.out.println(String.format("Usable space: %.2f GB", 
-		  (double)cDrive.getUsableSpace() /1073741824));
+		System.out.println(String.format("Total space: %.2f GB", (double)cDrive.getTotalSpace() /1073741824));
+		System.out.println(String.format("Free space: %.2f GB", (double)cDrive.getFreeSpace() /1073741824));
+		System.out.println(String.format("Usable space: %.2f GB", (double)cDrive.getUsableSpace() /1073741824));
 	}
 	
 	private static void getRamMemoryData() {
 		MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
-		System.out.println(String.format("Initial memory: %.2f GB", 
-		  (double)memoryMXBean.getHeapMemoryUsage().getInit() /1073741824));
-		System.out.println(String.format("Used heap memory: %.2f GB", 
-		  (double)memoryMXBean.getHeapMemoryUsage().getUsed() /1073741824));
-		System.out.println(String.format("Max heap memory: %.2f GB", 
-		  (double)memoryMXBean.getHeapMemoryUsage().getMax() /1073741824));
-		System.out.println(String.format("Committed memory: %.2f GB", 
-		  (double)memoryMXBean.getHeapMemoryUsage().getCommitted() /1073741824));
+		System.out.println(String.format("Initial memory: %.2f GB", (double)memoryMXBean.getHeapMemoryUsage().getInit() /1073741824));
+		System.out.println(String.format("Used heap memory: %.2f GB", (double)memoryMXBean.getHeapMemoryUsage().getUsed() /1073741824));
+		System.out.println(String.format("Max heap memory: %.2f GB", (double)memoryMXBean.getHeapMemoryUsage().getMax() /1073741824));
+		System.out.println(String.format("Committed memory: %.2f GB", (double)memoryMXBean.getHeapMemoryUsage().getCommitted() /1073741824));
 	}
 	
 	

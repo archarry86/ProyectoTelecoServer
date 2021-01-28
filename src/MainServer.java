@@ -25,21 +25,28 @@ public class MainServer {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		Runnable runnable = () -> listenToClient();
-		Thread thread = new Thread(runnable);
-		thread.start();		
+		System.out.println("Charry: ahora voy a quitar el thread");
+		//Runnable runnable = () -> listenToClient();
+		//Thread thread = new Thread(runnable);
+		//thread.start();	
+		listenToClient();
+	
+		
 		}
+	//si el programa sale del main todos los otros hilos se cierran
 	
 	private static void listenToClient () {
 		try {
 			
 			dataInputStream = new DataInputStream(socket.getInputStream());  
+			//Charry : no se le esta enviando nada al cliente 
 			dataOutputStream = new DataOutputStream(socket.getOutputStream());  
 
 			String message = "";
 			while(!message.equals("EXIT")) {
 				System.out.println("Ejecutando....");
-				message = dataInputStream.readUTF();
+				//charry:voy a leer por linea
+				message = dataInputStream.readLine();//.readUTF();
 				System.out.println("Message from Client : "+ message);
 				executeMessage(message);			
 			}
